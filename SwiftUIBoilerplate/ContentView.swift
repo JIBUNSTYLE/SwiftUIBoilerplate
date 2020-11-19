@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var shared: SharedPresenter
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        
+        switch self.shared.current {
+        case .splash:
+            Splash()
+            
+        case .login:
+            Login()
+            
+        case .home:
+            Home()
+        }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

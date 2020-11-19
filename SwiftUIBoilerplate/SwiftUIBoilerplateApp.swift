@@ -12,6 +12,8 @@ struct SwiftUIBoilerplateApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .animation(.easeOut)
+                .environmentObject(SharedPresenter())
         }
     }
 }
