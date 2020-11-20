@@ -7,9 +7,21 @@
 
 import SwiftUI
 
-struct Splash: View {
+protocol SplashUI: UserInterface {}
+
+struct Splash : SplashUI {
+    typealias From = RoutingTo.SplashFrom
     
+    let from: From
     @EnvironmentObject var shared: SharedPresenter
+
+    init(from: From) {
+        self.from = from
+        log("\(from)")
+    }
+}
+
+extension Splash: View {
     
     var body: some View {
         VStack {
@@ -20,15 +32,13 @@ struct Splash: View {
             }
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2){
-                self.shared.current = .login
-            }
+            self.shared.boot()
         }
     }
 }
 
 struct Splash_Previews: PreviewProvider {
     static var previews: some View {
-        Splash()
+        RoutingTo.SplashFrom.system.view
     }
 }

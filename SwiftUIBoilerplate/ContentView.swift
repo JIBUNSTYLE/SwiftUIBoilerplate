@@ -14,14 +14,17 @@ struct ContentView: View {
     var body: some View {
         
         switch self.shared.current {
-        case .splash:
-            Splash()
+        case .splash(let from):
+            from.view
+        
+        case .tutorial(let from):
+            from.view
             
-        case .login:
-            Login()
+        case .login(let from):
+            from.view
             
-        case .home:
-            Home()
+        case .home(let from):
+            from.view
         }
     }
 }

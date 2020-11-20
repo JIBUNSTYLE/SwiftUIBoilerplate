@@ -21,7 +21,7 @@ struct TermsOfService: View {
                 
                 Spacer()
                 
-                Button("→ back") {
+                Button("→ Back") {
                     self.presentationMode.wrappedValue.dismiss()
                 }
                 

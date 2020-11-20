@@ -7,10 +7,23 @@
 
 import SwiftUI
 
-struct Home: View {
+protocol HomeUI: UserInterface {}
+
+struct Home : HomeUI {
+    typealias From = RoutingTo.HomeFrom
     
+    let from: From
     @EnvironmentObject var shared: SharedPresenter
     @State var isPresent = false
+    @State var isPresentWelcome = false
+
+    init(from: From) {
+        self.from = from
+        log("\(from)")
+    }
+}
+
+extension Home: View {
     
     var body: some View {
         NavigationView {
@@ -22,7 +35,7 @@ struct Home: View {
                     Spacer()
                     
                     Button("→ Logout") {
-                        self.shared.current = .login
+                        self.shared.current = .login(from: .home)
                     }
                     
                     Spacer()
@@ -39,12 +52,32 @@ struct Home: View {
                 }
             }
             .navigationBarTitle("Home", displayMode: .large)
+            .sheet(isPresented: self.$isPresentWelcome) {
+                VStack {
+                    Spacer()
+                    
+                    Text("Welcome!")
+                    
+                    Spacer()
+                    
+                    Button("Close") {
+                        self.isPresentWelcome.toggle()
+                    }
+                    
+                    Spacer()
+                }
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                if case .login = self.from { self.isPresentWelcome = true }
+            }
         }
     }
 }
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        Home()
+        RoutingTo.HomeFrom.login.view
     }
 }

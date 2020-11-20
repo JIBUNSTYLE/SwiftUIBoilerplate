@@ -7,10 +7,22 @@
 
 import SwiftUI
 
-struct Login: View {
+protocol LoginUI: UserInterface {}
+
+struct Login : LoginUI {
+    typealias From = RoutingTo.LoginFrom
     
+    let from: From
     @EnvironmentObject var shared: SharedPresenter
     @State var isPresent = false
+
+    init(from: From) {
+        self.from = from
+        log("\(from)")
+    }
+}
+
+extension Login: View {
     
     var body: some View {
         VStack {
@@ -26,14 +38,14 @@ struct Login: View {
                     Spacer()
                     
                     Button("→ Login") {
-                        self.shared.current = .home
+                        self.shared.current = .home(from: .login)
                     }
                     
                     Spacer()
                     
                     HStack {
                         Button("→ Restart") {
-                            self.shared.current = .splash
+                            self.shared.current = .splash(from: .login)
                         }
                         Button("→ Terms of Service") {
                             self.isPresent.toggle()
@@ -58,6 +70,6 @@ struct Login: View {
 
 struct Login_Previews: PreviewProvider {
     static var previews: some View {
-        Login()
+        RoutingTo.LoginFrom.splash.view
     }
 }

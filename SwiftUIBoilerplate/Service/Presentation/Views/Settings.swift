@@ -9,7 +9,11 @@ import SwiftUI
 
 struct Settings: View {
     
+    @EnvironmentObject var shared: SharedPresenter
     @Environment(\.presentationMode) var presentationMode
+    
+    @State private var isPresetAlert = false
+    @State private var resetResult = false
     
     var body: some View {
         ZStack {
@@ -22,7 +26,19 @@ struct Settings: View {
                 
                 Spacer()
                 
-                Button("→ back") {
+                Button("→ Reset") {
+                    self.shared.reset { isSuccess in
+                        self.resetResult = isSuccess
+                        self.isPresetAlert = true
+                    }
+                }
+                .alert(isPresented: self.$isPresetAlert) {
+                    Alert(title: self.resetResult ? Text("Succeed!") : Text("failed!"))
+                }
+                
+                Spacer()
+                
+                Button("→ Back") {
                     self.presentationMode.wrappedValue.dismiss()
                 }
                 
