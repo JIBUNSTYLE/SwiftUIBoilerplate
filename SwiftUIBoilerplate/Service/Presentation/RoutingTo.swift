@@ -7,29 +7,24 @@
 
 import Foundation
 
-protocol SplashPageRelation : PageRelation where To: SplashUI { }
-protocol TutorialPageRelation : PageRelation where To: TutorialUI { }
-protocol LoginPageRelation : PageRelation where To: LoginUI { }
-protocol HomePageRelation : PageRelation where To: HomeUI { }
-
 enum RoutingTo {
     
-    enum SplashFrom : SplashPageRelation {
+    enum SplashFrom : RoutingFrom {
         typealias To = Splash
         case system, login
     }
     
-    enum TutorialFrom : TutorialPageRelation {
+    enum TutorialFrom : RoutingFrom {
         typealias To = Tutorial
         case splash
     }
     
-    enum LoginFrom : LoginPageRelation {
+    enum LoginFrom : RoutingFrom {
         typealias To = Login
         case splash, tutorial, home
     }
     
-    enum HomeFrom : HomePageRelation {
+    enum HomeFrom : RoutingFrom {
         typealias To = Home
         case login
     }

@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         
-        switch self.shared.current {
+        switch self.shared.routingTo {
         case .splash(let from):
             from.view
         

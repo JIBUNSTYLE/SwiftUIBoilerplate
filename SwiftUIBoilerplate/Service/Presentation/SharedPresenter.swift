@@ -9,11 +9,11 @@ import Foundation
 
 class SharedPresenter: Presentation {
     
-    @Published var current: RoutingTo = .splash(from: .system)
+    @Published var routingTo: RoutingTo = .splash(from: .system)
     
     func boot() {
-        _ = Identificator()
-            .boot()
+        _ = Boot()
+            .interact()
             .sink { completion in
                 if case .finished = completion {
                     log("boot は正常終了")
@@ -22,13 +22,13 @@ class SharedPresenter: Presentation {
                 }
             } receiveValue: { scenario in
                 log("usecase - boot: \(scenario)")
-                
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2){
-                    if case .チュートリアル完了の記録がある場合 = scenario.last {
-                        self.current = .login(from: .splash)
-                        
-                    } else if case .チュートリアル完了の記録がない場合 = scenario.last {
-                        self.current = .tutorial(from: .splash)
+                    if case .チュートリアル完了の記録がある場合_アプリはログイン画面を表示 = scenario.last {
+                        self.routingTo = .login(from: .splash)
+
+                    } else if case .チュートリアル完了の記録がない場合_アプリはチュートリアル画面を表示 = scenario.last {
+                        self.routingTo = .tutorial(from: .splash)
                     }
                 }
             }
@@ -36,8 +36,8 @@ class SharedPresenter: Presentation {
     
     func completeTutorial() {
         
-        _ = Identificator()
-            .completeTutorial()
+        _ = CompleteTutorial()
+            .interact()
             .sink { completion in
                 if case .finished = completion {
                     log("completeTutorial は正常終了")
@@ -49,14 +49,14 @@ class SharedPresenter: Presentation {
                 
                 DispatchQueue.main.async {
                     guard case .アプリはログイン画面を表示する = scenario.last else { fatalError() }
-                    self.current = .login(from: .tutorial)
+                    self.routingTo = .login(from: .tutorial)
                 }
             }
     }
     
     func reset(handler: @escaping (Bool) -> Void) {
-        _ = Identificator()
-            .reset()
+        _ = Reset()
+            .interact()
             .sink { completion in
                 if case .finished = completion {
                     log("reset は正常終了")

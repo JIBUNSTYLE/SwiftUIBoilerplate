@@ -38,14 +38,14 @@ extension Login: View {
                     Spacer()
                     
                     Button("→ Login") {
-                        self.shared.current = .home(from: .login)
+                        self.shared.routingTo = .home(from: .login)
                     }
                     
                     Spacer()
                     
                     HStack {
                         Button("→ Restart") {
-                            self.shared.current = .splash(from: .login)
+                            self.shared.routingTo = .splash(from: .login)
                         }
                         Button("→ Terms of Service") {
                             self.isPresent.toggle()

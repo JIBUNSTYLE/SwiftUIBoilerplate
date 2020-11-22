@@ -35,7 +35,7 @@ extension Home: View {
                     Spacer()
                     
                     Button("→ Logout") {
-                        self.shared.current = .login(from: .home)
+                        self.shared.routingTo = .login(from: .home)
                     }
                     
                     Spacer()

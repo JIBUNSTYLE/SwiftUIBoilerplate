@@ -11,7 +11,6 @@
 		703A0D0425668FEB00A87832 /* ArchitecturalProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A0D0325668FEB00A87832 /* ArchitecturalProtocols.swift */; };
 		703A0D092566907300A87832 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A0D082566907300A87832 /* Common.swift */; };
 		703A0D0E256697A700A87832 /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A0D0D256697A700A87832 /* Tutorial.swift */; };
-		703A0D15256699A900A87832 /* Identificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A0D14256699A900A87832 /* Identificator.swift */; };
 		703A0D1E25669AA500A87832 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A0D1D25669AA500A87832 /* Application.swift */; };
 		703A0D2E25669B9800A87832 /* StoreInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A0D2D25669B9800A87832 /* StoreInterface.swift */; };
 		703A0D3925669E8200A87832 /* Implementations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A0D3825669E8200A87832 /* Implementations.swift */; };
@@ -27,6 +26,9 @@
 		706D718325661B100043D10A /* TermsOfSerice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706D718225661B100043D10A /* TermsOfSerice.swift */; };
 		706D718825661B380043D10A /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706D718725661B380043D10A /* Home.swift */; };
 		706D718D25661B5D0043D10A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706D718C25661B5D0043D10A /* Settings.swift */; };
+		70748556256A968E00D98859 /* Boot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70748555256A968E00D98859 /* Boot.swift */; };
+		7074855E256A97EC00D98859 /* CompleteTutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7074855D256A97EC00D98859 /* CompleteTutorial.swift */; };
+		70748563256A981C00D98859 /* Reset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70748562256A981C00D98859 /* Reset.swift */; };
 		709E6BC32567928800C815D6 /* RoutingTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709E6BC22567928800C815D6 /* RoutingTo.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +54,6 @@
 		703A0D0325668FEB00A87832 /* ArchitecturalProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchitecturalProtocols.swift; sourceTree = "<group>"; };
 		703A0D082566907300A87832 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		703A0D0D256697A700A87832 /* Tutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
-		703A0D14256699A900A87832 /* Identificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identificator.swift; sourceTree = "<group>"; };
 		703A0D1D25669AA500A87832 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		703A0D2D25669B9800A87832 /* StoreInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInterface.swift; sourceTree = "<group>"; };
 		703A0D3825669E8200A87832 /* Implementations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Implementations.swift; sourceTree = "<group>"; };
@@ -74,6 +75,9 @@
 		706D718225661B100043D10A /* TermsOfSerice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfSerice.swift; sourceTree = "<group>"; };
 		706D718725661B380043D10A /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		706D718C25661B5D0043D10A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		70748555256A968E00D98859 /* Boot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boot.swift; sourceTree = "<group>"; };
+		7074855D256A97EC00D98859 /* CompleteTutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTutorial.swift; sourceTree = "<group>"; };
+		70748562256A981C00D98859 /* Reset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reset.swift; sourceTree = "<group>"; };
 		709E6BC22567928800C815D6 /* RoutingTo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingTo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,17 +118,19 @@
 		703A0D12256698FA00A87832 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				703A0D132566991300A87832 /* Interactors */,
+				703A0D132566991300A87832 /* Usecases */,
 			);
 			path = Application;
 			sourceTree = "<group>";
 		};
-		703A0D132566991300A87832 /* Interactors */ = {
+		703A0D132566991300A87832 /* Usecases */ = {
 			isa = PBXGroup;
 			children = (
-				703A0D14256699A900A87832 /* Identificator.swift */,
+				70748555256A968E00D98859 /* Boot.swift */,
+				7074855D256A97EC00D98859 /* CompleteTutorial.swift */,
+				70748562256A981C00D98859 /* Reset.swift */,
 			);
-			path = Interactors;
+			path = Usecases;
 			sourceTree = "<group>";
 		};
 		703A0D1C25669A9700A87832 /* Domain */ = {
@@ -147,8 +153,8 @@
 		703A0D2325669B1600A87832 /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
-				703A0D2D25669B9800A87832 /* StoreInterface.swift */,
 				703A0D3825669E8200A87832 /* Implementations.swift */,
+				703A0D2D25669B9800A87832 /* StoreInterface.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -389,14 +395,16 @@
 				706D718D25661B5D0043D10A /* Settings.swift in Sources */,
 				703A0D2E25669B9800A87832 /* StoreInterface.swift in Sources */,
 				706D716D25661A290043D10A /* Splash.swift in Sources */,
+				70748556256A968E00D98859 /* Boot.swift in Sources */,
 				709E6BC32567928800C815D6 /* RoutingTo.swift in Sources */,
 				703A0D0E256697A700A87832 /* Tutorial.swift in Sources */,
 				703A0D0425668FEB00A87832 /* ArchitecturalProtocols.swift in Sources */,
+				70748563256A981C00D98859 /* Reset.swift in Sources */,
 				7025EC0B2567D05500138FC1 /* UserDefaultsStore.swift in Sources */,
 				706D718325661B100043D10A /* TermsOfSerice.swift in Sources */,
-				703A0D15256699A900A87832 /* Identificator.swift in Sources */,
 				703A0D3925669E8200A87832 /* Implementations.swift in Sources */,
 				706D713C256619D10043D10A /* SwiftUIBoilerplateApp.swift in Sources */,
+				7074855E256A97EC00D98859 /* CompleteTutorial.swift in Sources */,
 				706D717625661A580043D10A /* SharedPresenter.swift in Sources */,
 				703A0D092566907300A87832 /* Common.swift in Sources */,
 				703A0D1E25669AA500A87832 /* Application.swift in Sources */,
