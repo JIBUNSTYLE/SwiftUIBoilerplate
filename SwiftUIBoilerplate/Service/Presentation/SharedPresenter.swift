@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import Combine
 
 class SharedPresenter: Presentation {
     
     @Published var routingTo: RoutingTo = .splash(from: .system)
     
+    private var cancellables = [AnyCancellable]()
+    
     func boot() {
-        _ = Boot()
+        Boot()
             .interact()
             .sink { completion in
                 if case .finished = completion {
@@ -22,21 +25,19 @@ class SharedPresenter: Presentation {
                 }
             } receiveValue: { scenario in
                 log("usecase - boot: \(scenario)")
+                
+                if case .チュートリアル完了の記録がある場合_アプリはログイン画面を表示 = scenario.last {
+                    self.routingTo = .login(from: .splash)
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2){
-                    if case .チュートリアル完了の記録がある場合_アプリはログイン画面を表示 = scenario.last {
-                        self.routingTo = .login(from: .splash)
-
-                    } else if case .チュートリアル完了の記録がない場合_アプリはチュートリアル画面を表示 = scenario.last {
-                        self.routingTo = .tutorial(from: .splash)
-                    }
+                } else if case .チュートリアル完了の記録がない場合_アプリはチュートリアル画面を表示 = scenario.last {
+                    self.routingTo = .tutorial(from: .splash)
                 }
-            }
+            }.store(in: &cancellables)
     }
     
     func completeTutorial() {
         
-        _ = CompleteTutorial()
+        CompleteTutorial()
             .interact()
             .sink { completion in
                 if case .finished = completion {
@@ -51,11 +52,11 @@ class SharedPresenter: Presentation {
                     guard case .アプリはログイン画面を表示する = scenario.last else { fatalError() }
                     self.routingTo = .login(from: .tutorial)
                 }
-            }
+            }.store(in: &cancellables)
     }
     
     func reset(handler: @escaping (Bool) -> Void) {
-        _ = Reset()
+        Reset()
             .interact()
             .sink { completion in
                 if case .finished = completion {
@@ -70,6 +71,6 @@ class SharedPresenter: Presentation {
                     fatalError()
                 }
                 handler(isSuccess)
-            }
+            }.store(in: &cancellables)
     }
 }

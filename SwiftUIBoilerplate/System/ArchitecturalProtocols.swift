@@ -17,7 +17,7 @@ protocol Usecase {
     ///
     /// - Parameter contexts: ユースケースシナリオの（画面での分岐を除く）分岐をけcaseに持つenumのある要素
     /// - Returns: 引数のenumと同様のenumで、引数の分岐を処理した結果の要素
-    func interact() -> Deferred<Future<[Self], Error>>
+    func interact() -> AnyPublisher<[Self], Error>
 }
 
 // MARK: - Presentation Layer
@@ -49,7 +49,7 @@ extension Usecase {
         }
     }
     
-    private func exec(contexts: [Self]) -> Deferred<Future<[Self], Error>> {
+    private func exec(contexts: [Self]) -> AnyPublisher<[Self], Error> {
         guard let context = contexts.last else { fatalError() }
         
         // 終了条件
@@ -59,33 +59,20 @@ extension Usecase {
                     promise(.success(contexts))
                 }
             }
+            .eraseToAnyPublisher()
         }
         
         // 再帰呼び出し
-        return Deferred {
-            Future<[Self], Error> { promise in
-                _ = future.sink { completion in
-                    if case .failure(let error) = completion {
-                        promise(.failure(error))
-                    }
-                } receiveValue: { nextContext in
-                    var _contexts = contexts
-                    _contexts.append(nextContext)
-                    
-                    _ = self.exec(contexts: _contexts)
-                        .sink { completion in
-                            if case .failure(let error) = completion {
-                                promise(.failure(error))
-                            }
-                        } receiveValue: { scenario in
-                            promise(.success(scenario))
-                        }
-                }
+        return future
+            .flatMap { nextContext -> AnyPublisher<[Self], Error> in
+                var _contexts = contexts
+                _contexts.append(nextContext)
+                return self.exec(contexts: _contexts)
             }
-        }
+            .eraseToAnyPublisher()
     }
     
-    func interact() -> Deferred<Future<[Self], Error>> {
+    func interact() -> AnyPublisher<[Self], Error> {
         return self.exec(contexts: [self])
     }
 }
