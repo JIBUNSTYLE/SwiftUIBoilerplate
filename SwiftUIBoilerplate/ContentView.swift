@@ -23,8 +23,9 @@ struct ContentView: View {
         case .login(let from):
             from.view
             
-        case .home(let from):
-            from.view
+        case .home(let from, let message):
+            //from.To(from: from, message: message)
+            RoutingTo.HomeFrom.To(from: from, message: message)
         }
     }
 }

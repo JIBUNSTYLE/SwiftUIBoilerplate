@@ -13,12 +13,21 @@ struct Home : HomeUI {
     typealias From = RoutingTo.HomeFrom
     
     let from: From
+    let message: String
+    
     @EnvironmentObject var shared: SharedPresenter
     @State var isPresent = false
     @State var isPresentWelcome = false
 
     init(from: From) {
         self.from = from
+        self.message = "Welcome!"
+        log("\(from)")
+    }
+    
+    init(from: From, message: String) {
+        self.from = from
+        self.message = message
         log("\(from)")
     }
 }
@@ -56,7 +65,7 @@ extension Home: View {
                 VStack {
                     Spacer()
                     
-                    Text("Welcome!")
+                    Text(self.message)
                     
                     Spacer()
                     

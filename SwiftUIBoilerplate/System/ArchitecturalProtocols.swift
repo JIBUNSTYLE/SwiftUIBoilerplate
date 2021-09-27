@@ -10,8 +10,8 @@ import Combine
 
 // MARK: - Application Layer
 protocol Usecase {
-    func next() -> Deferred<Future<Self, Error>>?
-    func just(next: Self) -> Deferred<Future<Self, Error>>
+    func next() -> AnyPublisher<Self, Error>?
+    func just(next: Self) -> AnyPublisher<Self, Error>
     
     /// Usecaseに準拠するenumを引数に取り、再帰的にnext()を実行します。
     ///
@@ -41,12 +41,13 @@ protocol UserInterface {
 // MARK: - Extensions
 
 extension Usecase {
-    func just(next: Self) -> Deferred<Future<Self, Error>> {
+    func just(next: Self) -> AnyPublisher<Self, Error> {
         return Deferred {
             Future<Self, Error> { promise in
                 promise(.success(next))
             }
         }
+        .eraseToAnyPublisher()
     }
     
     private func exec(contexts: [Self]) -> AnyPublisher<[Self], Error> {

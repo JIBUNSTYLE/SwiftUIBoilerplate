@@ -38,7 +38,7 @@ extension Login: View {
                     Spacer()
                     
                     Button("→ Login") {
-                        self.shared.routingTo = .home(from: .login)
+                        self.shared.routingTo = .home(from: .login, message: "Congratulation!")
                     }
                     
                     Spacer()

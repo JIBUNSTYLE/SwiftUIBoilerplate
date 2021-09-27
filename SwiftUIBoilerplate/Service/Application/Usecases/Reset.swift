@@ -16,21 +16,22 @@ enum Reset : Usecase {
         self = .アプリは設定情報をクリアする
     }
     
-    private func reset() -> Deferred<Future<Reset, Error>> {
-        return Deferred {
-            Future<Reset, Error> { promise in
-                promise(.success(.アプリは結果を表示する(isSuccess: Application().reset())))
-            }
-        }
-    }
-    
-    func next() -> Deferred<Future<Reset, Error>>? {
+    func next() -> AnyPublisher<Reset, Error>? {
         switch self {
         case .アプリは設定情報をクリアする:
             return self.reset()
         case .アプリは結果を表示する:
             return nil
         }
+    }
+    
+    private func reset() -> AnyPublisher<Reset, Error> {
+        return Deferred {
+            Future<Reset, Error> { promise in
+                promise(.success(.アプリは結果を表示する(isSuccess: Application().reset())))
+            }
+        }
+        .eraseToAnyPublisher()
     }
 }
 

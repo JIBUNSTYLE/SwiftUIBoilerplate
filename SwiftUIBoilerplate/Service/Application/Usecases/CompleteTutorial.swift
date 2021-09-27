@@ -17,16 +17,7 @@ enum CompleteTutorial : Usecase {
         self = .ユーザはチュートリアルを閉じる
     }
     
-    private func save() -> Deferred<Future<CompleteTutorial, Error>> {
-        return Deferred {
-            Future<CompleteTutorial, Error> { promise in
-                Application().hasCompletedTutorial = true
-                promise(.success(.アプリはログイン画面を表示する))
-            }
-        }
-    }
-    
-    func next() -> Deferred<Future<CompleteTutorial, Error>>? {
+    func next() -> AnyPublisher<CompleteTutorial, Error>? {
         switch self {
         case .ユーザはチュートリアルを閉じる:
             return self.just(next: .アプリはチュートリアル完了を記録する)
@@ -37,5 +28,15 @@ enum CompleteTutorial : Usecase {
         case .アプリはログイン画面を表示する:
             return nil
         }
+    }
+    
+    private func save() -> AnyPublisher<CompleteTutorial, Error> {
+        return Deferred {
+            Future<CompleteTutorial, Error> { promise in
+                Application().hasCompletedTutorial = true
+                promise(.success(.アプリはログイン画面を表示する))
+            }
+        }
+        .eraseToAnyPublisher()
     }
 }

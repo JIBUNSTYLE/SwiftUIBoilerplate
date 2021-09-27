@@ -32,5 +32,5 @@ enum RoutingTo {
     case splash(from: SplashFrom)
     case tutorial(from: TutorialFrom)
     case login(from: LoginFrom)
-    case home(from: HomeFrom)
+    case home(from: HomeFrom, message: String)
 }
